@@ -1,52 +1,46 @@
 <?php
-    $name = "Alejo";
-    $isDev = true;
-    $age = 28;
 
-    var_dump($name);
-    var_dump($isDev);
-    var_dump($age);
+const API_URL = "https://whenisthenextmcufilm.com/api";
 
-    $isOld = $age > 30;
-    
-    define('LOGO_URL', 'https://cdn.freebiesupply.com/logos/large/2x/php-logo-png-transparent.png');
+#Inicializar una nueva sesion de cURL; ch = cURLD handle
 
-    $outputAge = match (true){
-        $age < 2 => "Eres un bebe, $name",
-        $age < 10 => "Eres un ni;o, $name",
-        $age < 18 => "Eres un adolescente, $name",
-        $age === 18 => "Eres mayor de edad, $name",
-        $age < 40 => "Eres un joven, $name"
-    };
+$ch = curl_init(API_URL);
 
+//Indicar que queremos recibir el resultado de la peticion y no mostrarla en pantalla
 
-    $bestLanguages = ["PHP", "JavaScript", "Python", "Java "];
-    
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+//Ejecutar la peticion y guardamos el resultado
+
+$result = curl_exec($ch);
+$data = json_decode($result, true);
+
+curl_close($ch);
+
+var_dump($data);
+
 ?>
 
-<ul>
-    <?php foreach ($bestLanguages as $language): ?>
-        <li><?= $language ?></li>
-    <?php endforeach ?>
+<head>
+  <meta charset="UTF-8" /> 
+  <title>La proxima pelicula de Marvel</title>
+  <meta name="description" content="La proxima pelicula de Marvel" />
+  <meta name="viewport" content="width = device-width, initial-scale = 1.0" />
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"
+/>  
+</head>
 
-</ul>
+<main>
+    <section>
+        <img src="<?= $data["poster_url"]; ?>" width ="300" alt="Poster de <?= $data["title"]; ?>"
+        style="border-radius: 16px" />
+    </section>
 
-<h2><?= $outputAge ?></h2>
-
-<img src="<?= LOGO_URL ?> " alt="PHP Logo" width="200">
-
-<h1>
-       
-</h1>
-
-<style>
-    :root {
-        color-scheme: light dark;
-    }
-
-    body {
-        display: grid;
-        place-content: center;
-    }
-</style>
-
+    <hgroup>
+        <h3><?= $data["title"]; ?> se estrena en <?= $data["days_until"]; ?> dias</h3>
+        <p>Fecha de estreno: <?= $data["rekease_date"]; ?></p>
+        <p>La siguiente es: <?= $data["following_production"];["title"]; ?></p>
+    </hgroup>
+</main>
