@@ -39,7 +39,7 @@ curl_close($ch);
 
     <hgroup>
         <h3><?= $data["title"]; ?> se estrena en <?= $data["days_until"]; ?> dias</h3>
-        <p>Fecha de estreno: <?= $data["rekease_date"]; ?></p>
+        <p>Fecha de estreno: <?= $data["release_date"]; ?></p>
         <p>La siguiente es: <?= $data["following_production"]["title"]; ?></p>
     </hgroup>
 </main>
