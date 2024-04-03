@@ -17,7 +17,6 @@ $data = json_decode($result, true);
 
 curl_close($ch);
 
-var_dump($data);
 
 ?>
 
@@ -41,6 +40,27 @@ var_dump($data);
     <hgroup>
         <h3><?= $data["title"]; ?> se estrena en <?= $data["days_until"]; ?> dias</h3>
         <p>Fecha de estreno: <?= $data["rekease_date"]; ?></p>
-        <p>La siguiente es: <?= $data["following_production"];["title"]; ?></p>
+        <p>La siguiente es: <?= $data["following_production"]["title"]; ?></p>
     </hgroup>
 </main>
+
+<style>
+
+    body {
+        display: grid;
+        place-content: center;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    hgroup {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+</style>
