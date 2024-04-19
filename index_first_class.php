@@ -1,18 +1,22 @@
 <?php
-declare(strict_types = 1); // sirve para usar estrictamente los tipos de datos.
 
 const API_URL = "https://whenisthenextmcufilm.com/api";
 
-function get_data($url) {
-    $result = file_get_contents($url); // Si solo quieres hacer GET a una API
+#Inicializar una nueva sesion de cURL; ch = cURLD handle
 
-    $data = json_decode($result, true);
+$ch = curl_init(API_URL);
 
-    return $data;
+//Indicar que queremos recibir el resultado de la peticion y no mostrarla en pantalla
 
-}
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-$data = get_data(API_URL);
+//Ejecutar la peticion y guardamos el resultado
+
+$result = curl_exec($ch);
+$data = json_decode($result, true);
+
+curl_close($ch);
+
 
 ?>
 
